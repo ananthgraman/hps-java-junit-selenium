@@ -23,7 +23,7 @@ To update the tests:
 
     hiptest-publisher -c junit-selenium.conf --only=tests
 
-The tests are generated in [``src/test/java/com/coffeemachine/ProjectTest.java``](https://github.com/hiptest/hps-java-junit-selenium/blob/master/java/src/test/java/com/coffeemachine/ProjectTest.java)
+The tests are generated in [``src/test/java/com/coffeemachine/``](https://github.com/hiptest/hps-java-junit-selenium/blob/master/java/src/test/java/com/coffeemachine/)
 
 Run tests locally with Selenium
 -------------------------------
