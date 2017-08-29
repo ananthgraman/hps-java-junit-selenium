@@ -15,7 +15,7 @@ public class SeleniumDriverGetter {
         //caps.setCapability("version", "51.0");
         //caps.setCapability("marionette", "false");
 
-        if (System.getenv("USE_REMOTE_DRIVER") == "true") {
+        if (System.getenv("USE_REMOTE_DRIVER") != null) {
             return getRemoteDriver(caps);
         }
         return getLocalDriver(caps);
@@ -28,7 +28,7 @@ public class SeleniumDriverGetter {
     private WebDriver getRemoteDriver(DesiredCapabilities caps) throws Exception {
         String username = System.getenv("REMOTE_DRIVER_USERNAME");
         String password = System.getenv("REMOTE_DRIVER_PASSWORD");
-        String driverUrl = System.getenv("https://" + username + ":" + password + System.getenv("REMOTE_DRIVER_URL"));
+        String driverUrl = "https://" + username + ":" + password + System.getenv("REMOTE_DRIVER_URL");
 
         return new RemoteWebDriver(new URL(driverUrl), caps);
     }
