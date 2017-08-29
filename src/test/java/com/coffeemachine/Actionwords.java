@@ -33,7 +33,7 @@ public class Actionwords {
     }
 
     public void iStartTheCoffeeMachineUsingLanguageLang(String lang) {
-        driver.get("https://hiptest.github.io/hps-java-junit-selenium/src/web/coffee_machine.html");
+        driver.get(System.getenv("COFFEE_MACHINE_LOCATION"));
 
         new Select(driver.findElement(By.id("lang"))).selectByVisibleText(lang);
         driver.findElement(By.id("onOff")).click();
