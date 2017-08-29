@@ -1,4 +1,4 @@
-# hps-java-junit
+# hps-java-junit + Selenium
 
  [![Build Status](https://travis-ci.org/hiptest/hps-java-junit-selenium.svg?branch=master)](https://travis-ci.org/hiptest/hps-java-junit-selenium)
 
