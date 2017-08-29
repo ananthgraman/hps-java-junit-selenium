@@ -1,10 +1,6 @@
 package com.coffeemachine;
 
-import org.openqa.selenium.firefox.FirefoxDriver;
-
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
 
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.By;
@@ -14,22 +10,16 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
-import java.net.URL;
-
 public class Actionwords {
-    public WebDriver driver;
     public boolean handleWater = false;
     public boolean handleBeans = false;
     public boolean handleGrounds = false;
 
-    public void createBrowser() {
-        DesiredCapabilities caps = DesiredCapabilities.firefox();
-        //caps.setCapability("platform", "Windows XP");
-        //caps.setCapability("version", "51.0");
-        //caps.setCapability("marionette", "false");
+    public WebDriver driver;
 
+    public void createBrowser() {
         try {
-            driver = new FirefoxDriver(caps); //RemoteWebDriver(new URL(URL), caps);
+            driver = new SeleniumDriverGetter().getDriver();
         } catch (Exception err) {
             System.out.println("============-------------------------------------------------------------");
             System.out.println(err);
@@ -37,6 +27,7 @@ public class Actionwords {
 
         }
     }
+
     public void shutdownBrowser() {
         driver.quit();
     }
