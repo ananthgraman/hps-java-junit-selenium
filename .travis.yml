@@ -1,0 +1,14 @@
+language: java
+sudo: false
+
+before_install:
+  - rvm install 2.2
+  - rvm use 2.2
+  - gem install hiptest-publisher
+  - hiptest-publisher -c junit.conf --token=$SECRET_TOKEN --only=tests --test-run-id=101683
+
+script:
+  - mvn package
+
+after_script:
+  - hiptest-publisher -c junit.conf --token=$SECRET_TOKEN -p "target/surefire-reports/TEST-com.coffeemachine.*.xml" --test-run-id=101683

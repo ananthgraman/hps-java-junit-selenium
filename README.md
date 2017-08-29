@@ -44,7 +44,7 @@ You will first need an account on [SauceLabs](https://saucelabs.com). Once this 
 ```shell
 export REMOVE_DRIVER_USERNAME=<your username on SauceLabs>
 export REMOVE_DRIVER_PASSWORD=<your access key on SauceLabs>
-export REMOTE_DRIVER_url=@ondemand.saucelabs.com:443/wd/hub
+export REMOTE_DRIVER_URL=@ondemand.saucelabs.com:443/wd/hub
 export USE_REMOTE_DRIVER=true
 ```
 
