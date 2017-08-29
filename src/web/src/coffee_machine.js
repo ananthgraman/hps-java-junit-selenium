@@ -4,10 +4,14 @@ function CoffeeMachine () {
     _tank: 60,
     _beans: 40,
     _grounds: 0,
+    _countdownToDescale: 500,
     _started: false,
     _coffeeServed: false,
     _message: '',
-    _lang: 'en'
+    _lang: 'en',
+    _settingsDisplayed: false,
+    _waterHardness: '2',
+    _grinder: 'medium'
   }
 
   instance.i18n = {
@@ -15,14 +19,18 @@ function CoffeeMachine () {
       tank: 'Fill tank',
       beans: 'Fill beans',
       grounds: 'Empty grounds',
-      ready: 'Ready'
+      ready: 'Ready',
+      settings: 'Settings:\n - 1: water hardness\n - 2: grinder',
+      descale: 'Descaling is needed'
     },
 
     fr: {
       tank: 'Remplir reservoir',
       beans: 'Ajouter grains',
       grounds: 'Vider marc',
-      ready: 'Pret'
+      ready: 'Pret',
+      settings: 'Configurer:\n - 1: durete de l eau\n - 2: mouture',
+      descale: 'Detartrage requisd'
     }
   }
 
@@ -61,6 +69,11 @@ function CoffeeMachine () {
       return;
     }
 
+    if (instance.get('settingsDisplayed')) {
+      instance.set('message', messages.settings);
+      return;
+    }
+
     if (instance.get('tank') <= 10) {
       instance.set('message', messages.tank);
       return;
@@ -76,6 +89,11 @@ function CoffeeMachine () {
       return;
     }
 
+    if (instance.isDescalingNeeded()) {
+      instance.set('message', messages.descale);
+      return;
+    }
+
     instance.set('message', messages.ready);
   }
 
@@ -83,6 +101,9 @@ function CoffeeMachine () {
   instance.addListener('tank', updateMessage);
   instance.addListener('beans', updateMessage);
   instance.addListener('grounds', updateMessage);
+  instance.addListener('countdownToDescale', updateMessage);
+  instance.addListener('settingsDisplayed', updateMessage);
+
 
   instance.start = function (lang) {
     instance.set('lang', lang || 'en');
@@ -108,6 +129,7 @@ function CoffeeMachine () {
     instance.set('tank', instance.get('tank') - 1);
     instance.set('beans', instance.get('beans') - 1);
     instance.set('grounds', instance.get('grounds') + 1);
+    instance.set('countdownToDescale', instance.get('countdownToDescale') - 1);
   }
 
   instance.fillTank = function () {
@@ -120,6 +142,25 @@ function CoffeeMachine () {
 
   instance.emptyGrounds = function () {
     instance.set('grounds', 0);
+  }
+
+  instance.showSettings = function () {
+    this.set('settingsDisplayed', true);
+  }
+
+  instance.getSettings = function () {
+    return {
+      'water hardness': this.get('waterHardness'),
+      'grinder': this.get('grinder')
+    }
+  }
+
+  instance.descale = function () {
+    this.set('countdownToDescale', 500);
+  }
+
+  instance.isDescalingNeeded = function () {
+    return this.get('countdownToDescale') <= 0;
   }
 
   return instance;

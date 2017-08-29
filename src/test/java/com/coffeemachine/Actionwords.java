@@ -1,45 +1,102 @@
 package com.coffeemachine;
 
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
+
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertTrue;
+
+import java.net.URL;
+
 public class Actionwords {
+    public WebDriver driver;
+    public boolean handleWater = false;
+    public boolean handleBeans = false;
+    public boolean handleGrounds = false;
+
+    public void createBrowser() {
+        DesiredCapabilities caps = DesiredCapabilities.firefox();
+        //caps.setCapability("platform", "Windows XP");
+        //caps.setCapability("version", "51.0");
+        //caps.setCapability("marionette", "false");
+
+        try {
+            driver = new FirefoxDriver(caps); //RemoteWebDriver(new URL(URL), caps);
+        } catch (Exception err) {
+            System.out.println("============-------------------------------------------------------------");
+            System.out.println(err);
+            System.out.println("============-------------------------------------------------------------");
+
+        }
+    }
+    public void shutdownBrowser() {
+        driver.quit();
+    }
 
     public void iStartTheCoffeeMachineUsingLanguageLang(String lang) {
-        // TODO: Implement action: String.format("Start the coffee machine using language %s", lang)
+        driver.get("https://hiptest.github.io/hps-java-junit-selenium/src/web/coffee_machine.html");
+
+        new Select(driver.findElement(By.id("lang"))).selectByVisibleText(lang);
+        driver.findElement(By.id("onOff")).click();
     }
 
     public void iShutdownTheCoffeeMachine() {
-        // TODO: Implement action: "Shutdown coffee machine"
+        driver.findElement(By.id("onOff")).click();
     }
 
     public void messageMessageShouldBeDisplayed(String message) {
-        // TODO: Implement result: String.format("Displayed message is \"%s\"", message)
+        assertEquals(driver.findElement(By.id("message")).getText(), message);
     }
 
     public void coffeeShouldBeServed() {
-        // TODO: Implement result: "Coffee is served :)"
+        assertTrue(driver.findElement(By.id("coffee")).getAttribute("class").contains("served"));
     }
 
     public void coffeeShouldNotBeServed() {
-        // TODO: Implement result: "No coffee is served :("
+        assertFalse(driver.findElement(By.id("coffee")).getAttribute("class").contains("served"));
     }
 
     public void iTakeACoffee() {
-        // TODO: Implement action: "Take a coffee"
+        driver.findElement(By.id("getCoffee")).click();
+
+        if (handleWater) {
+            iFillTheWaterTank();
+        }
+
+        if (handleBeans) {
+            iFillTheBeansTank();
+        }
+
+        if (handleGrounds) {
+            iEmptyTheCoffeeGrounds();
+        }
     }
 
     public void iEmptyTheCoffeeGrounds() {
-        // TODO: Implement action: "Empty coffee grounds"
+        driver.findElement(By.id("emptyGround")).click();
     }
 
     public void iFillTheBeansTank() {
-        // TODO: Implement action: "Fill beans"
+        driver.findElement(By.id("fillBeans")).click();
     }
 
     public void iFillTheWaterTank() {
-        // TODO: Implement action: "Fill water tank"
+        driver.findElement(By.id("fillWater")).click();
     }
 
     public void iTakeCoffeeNumberCoffees(int coffeeNumber) {
-
+        while ((coffeeNumber > 0)) {
+            iTakeACoffee();
+            coffeeNumber = coffeeNumber - 1;
+        }
     }
 
     public void theCoffeeMachineIsStarted() {
@@ -52,15 +109,15 @@ public class Actionwords {
     }
 
     public void iHandleWaterTank() {
-
+        handleWater = true;
     }
 
     public void iHandleBeans() {
-
+        handleBeans = true;
     }
 
     public void iHandleCoffeeGrounds() {
-
+        handleGrounds = true;
     }
 
     public void iHandleEverythingExceptTheBeans() {
@@ -78,10 +135,16 @@ public class Actionwords {
     }
 
     public void iSwitchToSettingsMode() {
-
+        driver.findElement(By.id("settings")).click();
     }
 
     public void settingsShouldBe(String datatable) {
+        String settings = "";
+        for (String line : datatable.split("\n")) {
+            String[] cells = line.split("\\|");
+            settings = settings + cells[1].trim() + ": " + cells[2].trim() + "\n";
+        }
 
+        assertEquals(driver.findElement(By.id("settingsDisplay")).getText(), settings);
     }
 }

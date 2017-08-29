@@ -1,0 +1,25 @@
+package {{{ context.package }}}{{{ relative_package }}};
+
+import junit.framework.TestCase;
+{{#if needs_to_import_actionwords? }}import {{{ context.package }}}.Actionwords;
+{{/if}}
+public class {{{ clear_extension context.filename }}} extends TestCase {{#curly}}
+{{#indent}}{{#if has_tags?}}{{#comment '//'}}Tags: {{join rendered_children.tags ' '}}
+{{/comment}}{{/if}}
+public Actionwords {{{ context.call_prefix }}};
+protected void setUp() throws Exception {{#curly}}{{#indent}}
+super.setUp();
+{{{ context.call_prefix }}} = new Actionwords();
+{{{ context.call_prefix }}}.createBrowser();
+{{/indent}}
+{{> body}}
+{{/curly}}
+
+protected void tearDown() throws Exception {{#curly}}{{#indent}}
+{{{ context.call_prefix }}}.shutdownBrowser();{{/indent}}
+{{/curly}}
+
+{{#each rendered_children.scenarios}}{{{this}}}
+{{/each}}
+{{/indent}}
+{{/curly}}

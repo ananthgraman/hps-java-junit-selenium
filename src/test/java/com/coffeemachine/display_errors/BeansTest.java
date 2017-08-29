@@ -5,14 +5,20 @@ import com.coffeemachine.Actionwords;
 
 public class BeansTest extends TestCase {
 
-    public Actionwords actionwords = new Actionwords();
+    public Actionwords actionwords;
     protected void setUp() throws Exception {
         super.setUp();
+        actionwords = new Actionwords();
+        actionwords.createBrowser();
 
         // Given the coffee machine is started
         actionwords.theCoffeeMachineIsStarted();
         // And I handle everything except the beans
         actionwords.iHandleEverythingExceptTheBeans();
+    }
+
+    protected void tearDown() throws Exception {
+        actionwords.shutdownBrowser();
     }
 
     // 

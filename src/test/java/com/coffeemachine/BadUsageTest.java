@@ -4,7 +4,18 @@ import junit.framework.TestCase;
 
 public class BadUsageTest extends TestCase {
 
-    public Actionwords actionwords = new Actionwords();
+    public Actionwords actionwords;
+    protected void setUp() throws Exception {
+        super.setUp();
+        actionwords = new Actionwords();
+        actionwords.createBrowser();
+
+    }
+
+    protected void tearDown() throws Exception {
+        actionwords.shutdownBrowser();
+    }
+
     // You keep getting coffee even if the "Empty grounds" message is displayed. That said it's not a fantastic idea, you'll get ground everywhere when you'll decide to empty it.
     // Tags: priority:2
     public void testFullGroundsDoesNotBlockCoffee() {

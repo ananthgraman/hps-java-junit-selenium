@@ -48,4 +48,17 @@
   $('#fillBeans').click(function () {
     coffeeMachine.fillBeans();
   });
+
+  $('#settings').click(function () {
+    coffeeMachine.showSettings();
+
+    var displayed = "",
+      settings = coffeeMachine.getSettings();
+
+    Object.keys(settings).forEach(function (key) {
+      displayed = displayed + key + ": " + settings[key] + "\n";
+    })
+
+    $("#settingsDisplay").text(displayed);
+  })
 })(jQuery);

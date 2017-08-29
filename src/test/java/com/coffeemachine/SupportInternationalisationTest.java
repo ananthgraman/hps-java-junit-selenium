@@ -4,7 +4,18 @@ import junit.framework.TestCase;
 
 public class SupportInternationalisationTest extends TestCase {
     // Tags: sprint:3
-    public Actionwords actionwords = new Actionwords();
+    public Actionwords actionwords;
+    protected void setUp() throws Exception {
+        super.setUp();
+        actionwords = new Actionwords();
+        actionwords.createBrowser();
+
+    }
+
+    protected void tearDown() throws Exception {
+        actionwords.shutdownBrowser();
+    }
+
     // 
     // Tags: priority:1
     public void testNoMessagesAreDisplayedWhenMachineIsShutDown() {
