@@ -53,7 +53,7 @@ public class Actionwords {
     }
 
     public void messageMessageShouldBeDisplayed(String message) {
-        assertEquals(driver.findElement(By.id("message")).getText(), message);
+        assertEquals(driver.findElement(By.id("message")).getText().replace("\n", ""), message.replace("\n", ""));
     }
 
     public void coffeeShouldBeServed() {
@@ -139,12 +139,11 @@ public class Actionwords {
     }
 
     public void settingsShouldBe(String datatable) {
-        String settings = "";
         for (String line : datatable.split("\n")) {
             String[] cells = line.split("\\|");
-            settings = settings + cells[1].trim() + ": " + cells[2].trim() + "\n";
-        }
 
-        assertEquals(driver.findElement(By.id("settingsDisplay")).getText(), settings);
+            System.out.println("Checking " + driver.findElement(By.id("settingsDisplay")).getText() + " contains " + cells[1].trim() + ": " + cells[2].trim());
+            assertTrue(driver.findElement(By.id("settingsDisplay")).getText().contains(cells[1].trim() + ": " + cells[2].trim()));
+        }
     }
 }

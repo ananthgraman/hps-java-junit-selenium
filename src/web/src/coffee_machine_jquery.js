@@ -57,7 +57,7 @@
 
     Object.keys(settings).forEach(function (key) {
       displayed = displayed + key + ": " + settings[key] + "\n";
-    })
+    });
 
     $("#settingsDisplay").text(displayed);
   })
