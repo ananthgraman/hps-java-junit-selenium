@@ -3,7 +3,7 @@ package com.coffeemachine;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 import org.openqa.selenium.remote.DesiredCapabilities;
 
@@ -11,7 +11,7 @@ import java.net.URL;
 
 public class SeleniumDriverGetter {
     public WebDriver getDriver() throws Exception {
-        DesiredCapabilities caps = DesiredCapabilities.firefox();
+        DesiredCapabilities caps = DesiredCapabilities.chrome();
         //caps.setCapability("platform", "Windows XP");
         //caps.setCapability("version", "51.0");
         //caps.setCapability("marionette", "false");
