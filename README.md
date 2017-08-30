@@ -16,12 +16,6 @@ System under test
 
 The SUT is a (not that much) simple coffee machine. You start it, you ask for a coffee and you get it, sometimes. But most of times you have to add water or beans, empty the grounds. You have an automatic expresso machine at work or at home? So you know how it goes :-)
 
-You need to specify where the system under test is located, for example:
-
-```shell
-export COFFEE_MACHINE_LOCATION=https://hiptest.github.io/hps-java-junit-selenium/src/web/coffee_machine.html
-```
-
 Update tests
 -------------
 
@@ -52,6 +46,13 @@ export REMOVE_DRIVER_USERNAME=<your username on SauceLabs>
 export REMOVE_DRIVER_PASSWORD=<your access key on SauceLabs>
 export REMOTE_DRIVER_URL=@ondemand.saucelabs.com:443/wd/hub
 export USE_REMOTE_DRIVER=true
+```
+
+
+You will also need to specify where the system under test is located, for example:
+
+```shell
+export COFFEE_MACHINE_LOCATION=https://hiptest.github.io/hps-java-junit-selenium/src/web/coffee_machine.html
 ```
 
 Run the tests as previously done:
