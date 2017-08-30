@@ -1,10 +1,11 @@
 package com.coffeemachine;
 
 import org.openqa.selenium.WebDriver;
-
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.ChromeDriver;
+
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.URL;
 
@@ -22,7 +23,7 @@ public class SeleniumDriverGetter {
     }
 
     private WebDriver getLocalDriver(DesiredCapabilities caps) {
-        return new FirefoxDriver(caps);
+        return new ChromeDriver(caps);
     }
 
     private WebDriver getRemoteDriver(DesiredCapabilities caps) throws Exception {
