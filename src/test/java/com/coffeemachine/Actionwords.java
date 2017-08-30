@@ -24,7 +24,6 @@ public class Actionwords {
             System.out.println("============-------------------------------------------------------------");
             System.out.println(err);
             System.out.println("============-------------------------------------------------------------");
-
         }
     }
 
@@ -33,7 +32,12 @@ public class Actionwords {
     }
 
     public void iStartTheCoffeeMachineUsingLanguageLang(String lang) {
-        driver.get(System.getenv("COFFEE_MACHINE_LOCATION"));
+        String location = System.getenv("COFFEE_MACHINE_LOCATION");
+        if (location == null) {
+            location = "file://" + System.getProperty("user.dir") + "/src/web/coffee_machine.html";
+        }
+
+        driver.get(location);
 
         new Select(driver.findElement(By.id("lang"))).selectByVisibleText(lang);
         driver.findElement(By.id("onOff")).click();
