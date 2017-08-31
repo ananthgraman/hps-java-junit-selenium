@@ -17,18 +17,8 @@ public class Actionwords {
 
     public WebDriver driver;
 
-    public void createBrowser() {
-        try {
-            driver = new SeleniumDriverGetter().getDriver();
-        } catch (Exception err) {
-            System.out.println("============-------------------------------------------------------------");
-            System.out.println(err);
-            System.out.println("============-------------------------------------------------------------");
-        }
-    }
-
-    public void shutdownBrowser() {
-        driver.quit();
+    public Actionwords(WebDriver d) {
+        driver = d;
     }
 
     public void iStartTheCoffeeMachineUsingLanguageLang(String lang) {

@@ -11,6 +11,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import java.net.URL;
 
 public class SeleniumDriverGetter {
+
     public WebDriver getDriver() throws Exception {
         DesiredCapabilities caps = DesiredCapabilities.chrome();
         //caps.setCapability("platform", "Windows XP");

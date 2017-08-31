@@ -1,22 +1,28 @@
 package {{{ context.package }}}{{{ relative_package }}};
 
 import junit.framework.TestCase;
+import org.openqa.selenium.WebDriver;
+
 {{#if needs_to_import_actionwords? }}import {{{ context.package }}}.Actionwords;
+import {{{ context.package }}}.SeleniumDriverGetter;
 {{/if}}
 public class {{{ clear_extension context.filename }}} extends TestCase {{#curly}}
 {{#indent}}{{#if has_tags?}}{{#comment '//'}}Tags: {{join rendered_children.tags ' '}}
 {{/comment}}{{/if}}
 public Actionwords {{{ context.call_prefix }}};
+public WebDriver driver;
+
 protected void setUp() throws Exception {{#curly}}{{#indent}}
 super.setUp();
-{{{ context.call_prefix }}} = new Actionwords();
-{{{ context.call_prefix }}}.createBrowser();
+
+driver = new SeleniumDriverGetter().getDriver();
+{{{ context.call_prefix }}} = new Actionwords(driver);
 {{/indent}}
 {{> body}}
 {{/curly}}
 
 protected void tearDown() throws Exception {{#curly}}{{#indent}}
-{{{ context.call_prefix }}}.shutdownBrowser();{{/indent}}
+driver.quit();{{/indent}}
 {{/curly}}
 
 {{#each rendered_children.scenarios}}{{{this}}}

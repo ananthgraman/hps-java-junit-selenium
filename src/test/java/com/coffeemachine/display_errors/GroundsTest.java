@@ -1,15 +1,21 @@
 package com.coffeemachine.display_errors;
 
 import junit.framework.TestCase;
+import org.openqa.selenium.WebDriver;
+
 import com.coffeemachine.Actionwords;
+import com.coffeemachine.SeleniumDriverGetter;
 
 public class GroundsTest extends TestCase {
 
     public Actionwords actionwords;
+    public WebDriver driver;
+
     protected void setUp() throws Exception {
         super.setUp();
-        actionwords = new Actionwords();
-        actionwords.createBrowser();
+
+        driver = new SeleniumDriverGetter().getDriver();
+        actionwords = new Actionwords(driver);
 
         // Given the coffee machine is started
         actionwords.theCoffeeMachineIsStarted();
@@ -18,7 +24,7 @@ public class GroundsTest extends TestCase {
     }
 
     protected void tearDown() throws Exception {
-        actionwords.shutdownBrowser();
+        driver.quit();
     }
 
     // 

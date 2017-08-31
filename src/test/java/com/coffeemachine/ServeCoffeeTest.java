@@ -1,19 +1,24 @@
 package com.coffeemachine;
 
 import junit.framework.TestCase;
+import org.openqa.selenium.WebDriver;
+
 
 public class ServeCoffeeTest extends TestCase {
     // Tags: sprint:1
     public Actionwords actionwords;
+    public WebDriver driver;
+
     protected void setUp() throws Exception {
         super.setUp();
-        actionwords = new Actionwords();
-        actionwords.createBrowser();
+
+        driver = new SeleniumDriverGetter().getDriver();
+        actionwords = new Actionwords(driver);
 
     }
 
     protected void tearDown() throws Exception {
-        actionwords.shutdownBrowser();
+        driver.quit();
     }
 
     // Well, sometimes, you just get a coffee.

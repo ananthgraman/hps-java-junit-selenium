@@ -1,19 +1,24 @@
 package com.coffeemachine;
 
 import junit.framework.TestCase;
+import org.openqa.selenium.WebDriver;
+
 
 public class BadUsageTest extends TestCase {
 
     public Actionwords actionwords;
+    public WebDriver driver;
+
     protected void setUp() throws Exception {
         super.setUp();
-        actionwords = new Actionwords();
-        actionwords.createBrowser();
+
+        driver = new SeleniumDriverGetter().getDriver();
+        actionwords = new Actionwords(driver);
 
     }
 
     protected void tearDown() throws Exception {
-        actionwords.shutdownBrowser();
+        driver.quit();
     }
 
     // You keep getting coffee even if the "Empty grounds" message is displayed. That said it's not a fantastic idea, you'll get ground everywhere when you'll decide to empty it.
