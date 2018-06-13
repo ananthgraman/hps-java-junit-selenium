@@ -9,14 +9,19 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.URL;
+import java.net.MalformedURLException;
 
 public class SeleniumDriverGetter {
 
-    public WebDriver getDriver() throws Exception {
+    public WebDriver getDriver(String featureName, String testName) throws Exception {
         DesiredCapabilities caps = DesiredCapabilities.chrome();
-        //caps.setCapability("platform", "Windows XP");
-        //caps.setCapability("version", "51.0");
-        //caps.setCapability("marionette", "false");
+        caps.setCapability("name", "Coffee machine - " + featureName + "/" + testName);
+        caps.setCapability("build", "1.0.1");
+        caps.setCapability("browserName", "Chrome");
+        caps.setCapability("version", "66x64");
+        caps.setCapability("platform", "Windows 10");
+        caps.setCapability("screenResolution", "1366x768");
+        caps.setCapability("record_video", "true");
 
         if (System.getenv("USE_REMOTE_DRIVER") != null) {
             return getRemoteDriver(caps);
@@ -46,10 +51,16 @@ public class SeleniumDriverGetter {
     }
 
     private WebDriver getRemoteDriver(DesiredCapabilities caps) throws Exception {
-        String username = System.getenv("REMOTE_DRIVER_USERNAME");
-        String password = System.getenv("REMOTE_DRIVER_PASSWORD");
-        String driverUrl = "https://" + username + ":" + password + System.getenv("REMOTE_DRIVER_URL");
+        String username = System.getenv("CBT_USERNAME");
+        String authkey = System.getenv("CBT_AUTH_KEY");
+        URL hubUrl = null;
 
-        return new RemoteWebDriver(new URL(driverUrl), caps);
+        try {
+          hubUrl = new URL("http://" + username + ":" + authkey + "@hub.crossbrowsertesting.com:80/wd/hub");
+        } catch (MalformedURLException e) {
+          System.out.println("Invalid HUB URL");
+        }
+
+        return new RemoteWebDriver(hubUrl, caps);
     }
 }

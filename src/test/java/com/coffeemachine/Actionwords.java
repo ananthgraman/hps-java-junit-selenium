@@ -16,8 +16,11 @@ public class Actionwords {
     public boolean handleGrounds = false;
 
     public WebDriver driver;
+    public String featureName;
 
-    public Actionwords(WebDriver d) {
+    public Actionwords() {}
+
+    public void setDriver(WebDriver d) {
         driver = d;
     }
 
