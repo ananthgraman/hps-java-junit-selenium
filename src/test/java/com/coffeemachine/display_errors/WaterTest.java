@@ -17,16 +17,14 @@ public class WaterTest extends TestCase {
 
     protected void setUp() throws Exception {
         super.setUp();
-        cbt = new CBTHelper();
         actionwords = new Actionwords();
     }
 
-    protected void tearDown() throws Exception {
-        cbt.setScore(score);
-        driver.quit();
-    }
-
-    protected void scenarioSetup() {
+    protected void scenarioSetup(String testName)  throws Exception {
+        cbt = new CBTHelper();
+        driver = new SeleniumDriverGetter().getDriver(featureName, testName);
+        cbt.setSessionId(((RemoteWebDriver)driver).getSessionId().toString());
+        actionwords.setDriver(driver);
 
         // Given the coffee machine is started
         actionwords.theCoffeeMachineIsStarted();
@@ -34,13 +32,15 @@ public class WaterTest extends TestCase {
         actionwords.iHandleEverythingExceptTheWaterTank();
     }
 
+    protected void tearDown() throws Exception {
+        cbt.setScore(score);
+        driver.quit();
+    }
+
     // 
     // Tags: priority:0
     public void testMessageFillWaterTankIsDisplayedAfter50CoffeesAreTaken() throws Exception {
-        driver = new SeleniumDriverGetter().getDriver(featureName, "Message \"Fill water tank\" is displayed after 50 coffees are taken");
-        cbt.setSessionId(((RemoteWebDriver)driver).getSessionId().toString());
-        actionwords.setDriver(driver);
-        scenarioSetup();
+        scenarioSetup("Message \"Fill water tank\" is displayed after 50 coffees are taken");
 
         // When I take "50" coffees
         actionwords.iTakeCoffeeNumberCoffees(50);
@@ -51,10 +51,7 @@ public class WaterTest extends TestCase {
     // 
     // Tags: priority:2
     public void testItIsPossibleToTake10CoffeesAfterTheMessageFillWaterTankIsDisplayed() throws Exception {
-        driver = new SeleniumDriverGetter().getDriver(featureName, "It is possible to take 10 coffees after the message \"Fill water tank\" is displayed");
-        cbt.setSessionId(((RemoteWebDriver)driver).getSessionId().toString());
-        actionwords.setDriver(driver);
-        scenarioSetup();
+        scenarioSetup("It is possible to take 10 coffees after the message \"Fill water tank\" is displayed");
 
         // When I take "60" coffees
         actionwords.iTakeCoffeeNumberCoffees(60);
@@ -69,10 +66,7 @@ public class WaterTest extends TestCase {
     // 
     // Tags: priority:0
     public void testWhenTheWaterTankIsFilledTheMessageDisappears() throws Exception {
-        driver = new SeleniumDriverGetter().getDriver(featureName, "When the water tank is filled, the message disappears");
-        cbt.setSessionId(((RemoteWebDriver)driver).getSessionId().toString());
-        actionwords.setDriver(driver);
-        scenarioSetup();
+        scenarioSetup("When the water tank is filled, the message disappears");
 
         // When I take "55" coffees
         actionwords.iTakeCoffeeNumberCoffees(55);

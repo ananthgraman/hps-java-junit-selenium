@@ -18,17 +18,20 @@ public String featureName = "{{escape_double_quotes rendered_children.name }}";
 
 protected void setUp() throws Exception {{#curly}}{{#indent}}
 super.setUp();
-cbt = new CBTHelper();
 {{{ context.call_prefix }}} = new Actionwords();{{/indent}}
+{{/curly}}
+
+protected void scenarioSetup(String testName)  throws Exception {{#curly}}{{#indent}}
+cbt = new CBTHelper();
+driver = new SeleniumDriverGetter().getDriver(featureName, testName);
+cbt.setSessionId(((RemoteWebDriver)driver).getSessionId().toString());
+actionwords.setDriver(driver);{{/indent}}
+{{> body}}
 {{/curly}}
 
 protected void tearDown() throws Exception {{#curly}}{{#indent}}
 cbt.setScore(score);
 driver.quit();{{/indent}}
-{{/curly}}
-
-protected void scenarioSetup() {{#curly}}
-{{> body}}
 {{/curly}}
 
 {{#each rendered_children.scenarios}}{{{this}}}

@@ -3,10 +3,8 @@
 {{#indent}}{{#comment '//'}}{{#if has_tags?}}Tags: {{{ join rendered_children.tags ' '}}}
 {{/if}}{{#if has_description?}}{{rendered_children.description}}
 {{/if}}{{/comment}}
-driver = new SeleniumDriverGetter().getDriver(featureName, "{{escape_double_quotes rendered_children.name }}");
-cbt.setSessionId(((RemoteWebDriver)driver).getSessionId().toString());
-actionwords.setDriver(driver);
-scenarioSetup();{{/indent}}
+scenarioSetup("{{escape_double_quotes rendered_children.name }}");
+{{/indent}}
 {{> body}}
 {{#indent}}score = "pass";{{/indent}}
 {{/clear_empty_lines}}
@@ -16,10 +14,7 @@ scenarioSetup();{{/indent}}
 {{#if has_tags?}}Tags: {{{ join rendered_children.tags ' '}}}{{/if}}
 {{/comment}}
 public void test{{{ camelize rendered_children.name }}}{{#if rendered_children.uid}}Uid{{{ normalize rendered_children.uid}}}{{/if}}() throws Exception {{#curly}}{{#indent}}
-driver = new SeleniumDriverGetter().getDriver(featureName, "{{escape_double_quotes rendered_children.name }}");
-cbt.setSessionId(((RemoteWebDriver)driver).getSessionId().toString());
-actionwords.setDriver(driver);
-scenarioSetup();{{/indent}}
+scenarioSetup("{{escape_double_quotes rendered_children.name }}");{{/indent}}
 {{> body}}
 {{#indent}}score = "pass";{{/indent}}
 {{/curly}}{{/if}}

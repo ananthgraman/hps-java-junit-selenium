@@ -42,8 +42,35 @@ Run tests using Selenium + Cross browser testing
 You will first need an account on [Cross browser testing](https://crossbrowsertesting.com). Once this is done, you will need to export a few variables to ensure you are using SauceLabs driver:
 
 ```shell
-export CBT_USERNAME=<your username on Cross Browser Testing>
-export CBT_AUTH_KEY=<your access key on Cross Browser Testing>
+export REMOTE_DRIVER_USERNAME=<your username on Cross Browser Testing>
+export REMOTE_DRIVER_PASSWORD=<your access key on Cross Browser Testing>
+export REMOTE_DRIVER_URL=hub.crossbrowsertesting.com:80/wd/hub
+export USE_REMOTE_DRIVER=true
+export USE_CBT=true
+```
+
+
+You will also need to specify where the system under test is located, for example:
+
+```shell
+export COFFEE_MACHINE_LOCATION=https://hiptest.github.io/hps-java-junit-selenium/src/web/coffee_machine.html
+```
+
+Run the tests as previously done:
+
+    mvn package
+
+This should now use CrossBrowserTesting to run the tests
+
+Run tests using Selenium + SauceLabs
+------------------------------------
+
+You will first need an account on [SauceLabs](https://saucelabs.com). Once this is done, you will need to export a few variables to ensure you are using SauceLabs driver:
+
+```shell
+export REMOTE_DRIVER_USERNAME=<your username on SauceLabs>
+export REMOTE_DRIVER_PASSWORD=<your access key on SauceLabs>
+export REMOTE_DRIVER_URL=ondemand.saucelabs.com:443/wd/hub
 export USE_REMOTE_DRIVER=true
 ```
 
@@ -59,4 +86,3 @@ Run the tests as previously done:
     mvn package
 
 This should now use SauceLabs to run the tests
-

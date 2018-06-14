@@ -17,16 +17,14 @@ public class BeansTest extends TestCase {
 
     protected void setUp() throws Exception {
         super.setUp();
-        cbt = new CBTHelper();
         actionwords = new Actionwords();
     }
 
-    protected void tearDown() throws Exception {
-        cbt.setScore(score);
-        driver.quit();
-    }
-
-    protected void scenarioSetup() {
+    protected void scenarioSetup(String testName)  throws Exception {
+        cbt = new CBTHelper();
+        driver = new SeleniumDriverGetter().getDriver(featureName, testName);
+        cbt.setSessionId(((RemoteWebDriver)driver).getSessionId().toString());
+        actionwords.setDriver(driver);
 
         // Given the coffee machine is started
         actionwords.theCoffeeMachineIsStarted();
@@ -34,13 +32,15 @@ public class BeansTest extends TestCase {
         actionwords.iHandleEverythingExceptTheBeans();
     }
 
+    protected void tearDown() throws Exception {
+        cbt.setScore(score);
+        driver.quit();
+    }
+
     // 
     // Tags: priority:0
     public void testMessageFillBeansIsDisplayedAfter38CoffeesAreTaken() throws Exception {
-        driver = new SeleniumDriverGetter().getDriver(featureName, "Message \"Fill beans\" is displayed after 38 coffees are taken");
-        cbt.setSessionId(((RemoteWebDriver)driver).getSessionId().toString());
-        actionwords.setDriver(driver);
-        scenarioSetup();
+        scenarioSetup("Message \"Fill beans\" is displayed after 38 coffees are taken");
 
         // When I take "38" coffees
         actionwords.iTakeCoffeeNumberCoffees(38);
@@ -51,10 +51,7 @@ public class BeansTest extends TestCase {
     // 
     // Tags: priority:2
     public void testItIsPossibleToTake40CoffeesBeforeThereIsReallyNoMoreBeans() throws Exception {
-        driver = new SeleniumDriverGetter().getDriver(featureName, "It is possible to take 40 coffees before there is really no more beans");
-        cbt.setSessionId(((RemoteWebDriver)driver).getSessionId().toString());
-        actionwords.setDriver(driver);
-        scenarioSetup();
+        scenarioSetup("It is possible to take 40 coffees before there is really no more beans");
 
         // When I take "40" coffees
         actionwords.iTakeCoffeeNumberCoffees(40);
@@ -71,10 +68,7 @@ public class BeansTest extends TestCase {
     // 
     // Tags: priority:0
     public void testAfterAddingBeansTheMessageFillBeansDisappears() throws Exception {
-        driver = new SeleniumDriverGetter().getDriver(featureName, "After adding beans, the message \"Fill beans\" disappears");
-        cbt.setSessionId(((RemoteWebDriver)driver).getSessionId().toString());
-        actionwords.setDriver(driver);
-        scenarioSetup();
+        scenarioSetup("After adding beans, the message \"Fill beans\" disappears");
 
         // When I take "40" coffees
         actionwords.iTakeCoffeeNumberCoffees(40);

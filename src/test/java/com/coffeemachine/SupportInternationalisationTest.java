@@ -15,8 +15,15 @@ public class SupportInternationalisationTest extends TestCase {
 
     protected void setUp() throws Exception {
         super.setUp();
-        cbt = new CBTHelper();
         actionwords = new Actionwords();
+    }
+
+    protected void scenarioSetup(String testName)  throws Exception {
+        cbt = new CBTHelper();
+        driver = new SeleniumDriverGetter().getDriver(featureName, testName);
+        cbt.setSessionId(((RemoteWebDriver)driver).getSessionId().toString());
+        actionwords.setDriver(driver);
+
     }
 
     protected void tearDown() throws Exception {
@@ -24,17 +31,10 @@ public class SupportInternationalisationTest extends TestCase {
         driver.quit();
     }
 
-    protected void scenarioSetup() {
-
-    }
-
     // 
     // Tags: priority:1
     public void testNoMessagesAreDisplayedWhenMachineIsShutDown() throws Exception {
-        driver = new SeleniumDriverGetter().getDriver(featureName, "No messages are displayed when machine is shut down");
-        cbt.setSessionId(((RemoteWebDriver)driver).getSessionId().toString());
-        actionwords.setDriver(driver);
-        scenarioSetup();
+        scenarioSetup("No messages are displayed when machine is shut down");
 
         // Given the coffee machine is started
         actionwords.theCoffeeMachineIsStarted();
@@ -47,14 +47,12 @@ public class SupportInternationalisationTest extends TestCase {
     public void messagesAreBasedOnLanguage(String language, String readyMessage) throws Exception {
         // Tags: priority:1
         // Well, sometimes, you just get a coffee.
-        driver = new SeleniumDriverGetter().getDriver(featureName, "Messages are based on language");
-        cbt.setSessionId(((RemoteWebDriver)driver).getSessionId().toString());
-        actionwords.setDriver(driver);
-        scenarioSetup();
+        scenarioSetup("Messages are based on language");
         // When I start the coffee machine using language "<language>"
         actionwords.iStartTheCoffeeMachineUsingLanguageLang(language);
         // Then message "<ready_message>" should be displayed
         actionwords.messageMessageShouldBeDisplayed(readyMessage);
+        score = "pass";
     }
 
     public void testMessagesAreBasedOnLanguageEnglish() throws Exception {

@@ -15,8 +15,15 @@ public class CanBeConfiguredTest extends TestCase {
 
     protected void setUp() throws Exception {
         super.setUp();
-        cbt = new CBTHelper();
         actionwords = new Actionwords();
+    }
+
+    protected void scenarioSetup(String testName)  throws Exception {
+        cbt = new CBTHelper();
+        driver = new SeleniumDriverGetter().getDriver(featureName, testName);
+        cbt.setSessionId(((RemoteWebDriver)driver).getSessionId().toString());
+        actionwords.setDriver(driver);
+
     }
 
     protected void tearDown() throws Exception {
@@ -24,17 +31,10 @@ public class CanBeConfiguredTest extends TestCase {
         driver.quit();
     }
 
-    protected void scenarioSetup() {
-
-    }
-
     // 
     // Tags: priority:1
     public void testDisplaySettings() throws Exception {
-        driver = new SeleniumDriverGetter().getDriver(featureName, "Display settings");
-        cbt.setSessionId(((RemoteWebDriver)driver).getSessionId().toString());
-        actionwords.setDriver(driver);
-        scenarioSetup();
+        scenarioSetup("Display settings");
 
         // Given the coffee machine is started
         actionwords.theCoffeeMachineIsStarted();
@@ -47,10 +47,7 @@ public class CanBeConfiguredTest extends TestCase {
     // 
     // Tags: priority:0
     public void testDefaultSettings() throws Exception {
-        driver = new SeleniumDriverGetter().getDriver(featureName, "Default settings");
-        cbt.setSessionId(((RemoteWebDriver)driver).getSessionId().toString());
-        actionwords.setDriver(driver);
-        scenarioSetup();
+        scenarioSetup("Default settings");
 
         // Given the coffee machine is started
         actionwords.theCoffeeMachineIsStarted();
