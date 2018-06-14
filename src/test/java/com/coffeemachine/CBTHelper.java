@@ -28,8 +28,8 @@ public class CBTHelper {
     }
 
     public CBTHelper() {
-        this.username = System.getenv("CBT_USERNAME");
-        this.authkey = System.getenv("CBT_AUTH_KEY");
+        this.username = System.getenv("REMOTE_DRIVER_USERNAME");
+        this.authkey = System.getenv("REMOTE_DRIVER_PASSWORD");
         if (this.username.contains("@")) {
             username = username.replace("@", "%40");
         }

@@ -15,8 +15,15 @@ public class BadUsageTest extends TestCase {
 
     protected void setUp() throws Exception {
         super.setUp();
-        cbt = new CBTHelper();
         actionwords = new Actionwords();
+    }
+
+    protected void scenarioSetup(String testName)  throws Exception {
+        cbt = new CBTHelper();
+        driver = new SeleniumDriverGetter().getDriver(featureName, testName);
+        cbt.setSessionId(((RemoteWebDriver)driver).getSessionId().toString());
+        actionwords.setDriver(driver);
+
     }
 
     protected void tearDown() throws Exception {
@@ -24,17 +31,10 @@ public class BadUsageTest extends TestCase {
         driver.quit();
     }
 
-    protected void scenarioSetup() {
-
-    }
-
     // You keep getting coffee even if the "Empty grounds" message is displayed. That said it's not a fantastic idea, you'll get ground everywhere when you'll decide to empty it.
     // Tags: priority:2
     public void testFullGroundsDoesNotBlockCoffee() throws Exception {
-        driver = new SeleniumDriverGetter().getDriver(featureName, "Full grounds does not block coffee");
-        cbt.setSessionId(((RemoteWebDriver)driver).getSessionId().toString());
-        actionwords.setDriver(driver);
-        scenarioSetup();
+        scenarioSetup("Full grounds does not block coffee");
 
         // Given the coffee machine is started
         actionwords.theCoffeeMachineIsStarted();

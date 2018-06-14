@@ -17,16 +17,14 @@ public class GroundsTest extends TestCase {
 
     protected void setUp() throws Exception {
         super.setUp();
-        cbt = new CBTHelper();
         actionwords = new Actionwords();
     }
 
-    protected void tearDown() throws Exception {
-        cbt.setScore(score);
-        driver.quit();
-    }
-
-    protected void scenarioSetup() {
+    protected void scenarioSetup(String testName)  throws Exception {
+        cbt = new CBTHelper();
+        driver = new SeleniumDriverGetter().getDriver(featureName, testName);
+        cbt.setSessionId(((RemoteWebDriver)driver).getSessionId().toString());
+        actionwords.setDriver(driver);
 
         // Given the coffee machine is started
         actionwords.theCoffeeMachineIsStarted();
@@ -34,13 +32,15 @@ public class GroundsTest extends TestCase {
         actionwords.iHandleEverythingExceptTheGrounds();
     }
 
+    protected void tearDown() throws Exception {
+        cbt.setScore(score);
+        driver.quit();
+    }
+
     // 
     // Tags: priority:0
     public void testMessageEmptyGroundsIsDisplayedAfter30CoffeesAreTaken() throws Exception {
-        driver = new SeleniumDriverGetter().getDriver(featureName, "Message \"Empty grounds\" is displayed after 30 coffees are taken");
-        cbt.setSessionId(((RemoteWebDriver)driver).getSessionId().toString());
-        actionwords.setDriver(driver);
-        scenarioSetup();
+        scenarioSetup("Message \"Empty grounds\" is displayed after 30 coffees are taken");
 
         // When I take "30" coffees
         actionwords.iTakeCoffeeNumberCoffees(30);
@@ -51,10 +51,7 @@ public class GroundsTest extends TestCase {
     // 
     // Tags: priority:1
     public void testWhenTheGroundsAreEmptiedMessageIsRemoved() throws Exception {
-        driver = new SeleniumDriverGetter().getDriver(featureName, "When the grounds are emptied, message is removed");
-        cbt.setSessionId(((RemoteWebDriver)driver).getSessionId().toString());
-        actionwords.setDriver(driver);
-        scenarioSetup();
+        scenarioSetup("When the grounds are emptied, message is removed");
 
         // When I take "30" coffees
         actionwords.iTakeCoffeeNumberCoffees(30);

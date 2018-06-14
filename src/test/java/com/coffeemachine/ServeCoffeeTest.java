@@ -15,8 +15,15 @@ public class ServeCoffeeTest extends TestCase {
 
     protected void setUp() throws Exception {
         super.setUp();
-        cbt = new CBTHelper();
         actionwords = new Actionwords();
+    }
+
+    protected void scenarioSetup(String testName)  throws Exception {
+        cbt = new CBTHelper();
+        driver = new SeleniumDriverGetter().getDriver(featureName, testName);
+        cbt.setSessionId(((RemoteWebDriver)driver).getSessionId().toString());
+        actionwords.setDriver(driver);
+
     }
 
     protected void tearDown() throws Exception {
@@ -24,17 +31,10 @@ public class ServeCoffeeTest extends TestCase {
         driver.quit();
     }
 
-    protected void scenarioSetup() {
-
-    }
-
     // Well, sometimes, you just get a coffee.
     // Tags: priority:0
     public void testSimpleUse() throws Exception {
-        driver = new SeleniumDriverGetter().getDriver(featureName, "Simple use");
-        cbt.setSessionId(((RemoteWebDriver)driver).getSessionId().toString());
-        actionwords.setDriver(driver);
-        scenarioSetup();
+        scenarioSetup("Simple use");
 
         // Given the coffee machine is started
         actionwords.theCoffeeMachineIsStarted();
