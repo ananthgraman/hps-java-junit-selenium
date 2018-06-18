@@ -13,6 +13,7 @@ import java.net.URL;
 public class CBTHelper {
     private String sessionId,username,authkey;
     private String apiUrl = "crossbrowsertesting.com/api/v3/selenium";
+
     public CBTHelper(String username, String authkey, boolean useSecureTunnel) {
         // for java URL's must be character encoded. If you use
         // your email, let's replace that character
