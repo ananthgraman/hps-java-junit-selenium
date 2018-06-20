@@ -21,9 +21,11 @@ public class GroundsTest extends TestCase {
     }
 
     protected void scenarioSetup(String testName)  throws Exception {
-        cbt = new CBTHelper();
         driver = new SeleniumDriverGetter().getDriver(featureName, testName);
-        cbt.setSessionId(((RemoteWebDriver)driver).getSessionId().toString());
+        if (System.getenv("USE_CBT") != null) {
+            cbt = new CBTHelper();
+            cbt.setSessionId(((RemoteWebDriver)driver).getSessionId().toString());
+        }
         actionwords.setDriver(driver);
 
         // Given the coffee machine is started
@@ -33,7 +35,9 @@ public class GroundsTest extends TestCase {
     }
 
     protected void tearDown() throws Exception {
-        cbt.setScore(score);
+        if (System.getenv("USE_CBT") != null) {
+            cbt.setScore(score);
+        }
         driver.quit();
     }
 
