@@ -29,7 +29,6 @@ public class CBTHelper {
     }
 
     public CBTHelper() {
-        System.out.println("Creating CBT helper with username '" + System.getenv("REMOTE_DRIVER_USERNAME") + "'");
         this.username = System.getenv("REMOTE_DRIVER_USERNAME");
         this.authkey = System.getenv("REMOTE_DRIVER_PASSWORD");
         if (this.username.contains("@")) {
