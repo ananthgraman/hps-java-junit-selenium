@@ -24,7 +24,7 @@ install:
   - sudo ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
 
 script:
-  - ./set_credentials.sh
+  - source set_credentials.sh
   - mvn package
 
 after_script:
