@@ -19,18 +19,23 @@ public class CanBeConfiguredTest extends TestCase {
     }
 
     protected void scenarioSetup(String testName)  throws Exception {
-        cbt = new CBTHelper();
         driver = new SeleniumDriverGetter().getDriver(featureName, testName);
-        cbt.setSessionId(((RemoteWebDriver)driver).getSessionId().toString());
+        if (System.getenv("USE_CBT") != null) {
+            cbt = new CBTHelper();
+            cbt.setSessionId(((RemoteWebDriver)driver).getSessionId().toString());
+        }
         actionwords.setDriver(driver);
+
     }
 
     protected void tearDown() throws Exception {
-        cbt.setScore(score);
+        if (System.getenv("USE_CBT") != null) {
+            cbt.setScore(score);
+        }
         driver.quit();
     }
 
-    //
+    // 
     // Tags: priority:1
     public void testDisplaySettings() throws Exception {
         scenarioSetup("Display settings");
@@ -43,7 +48,7 @@ public class CanBeConfiguredTest extends TestCase {
         actionwords.displayedMessageIs("Settings:\n - 1: water hardness\n - 2: grinder");
         score = "pass";
     }
-    //
+    // 
     // Tags: priority:0
     public void testDefaultSettings() throws Exception {
         scenarioSetup("Default settings");

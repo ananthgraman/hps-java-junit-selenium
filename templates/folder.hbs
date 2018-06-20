@@ -22,15 +22,19 @@ super.setUp();
 {{/curly}}
 
 protected void scenarioSetup(String testName)  throws Exception {{#curly}}{{#indent}}
-cbt = new CBTHelper();
 driver = new SeleniumDriverGetter().getDriver(featureName, testName);
-cbt.setSessionId(((RemoteWebDriver)driver).getSessionId().toString());
+if (System.getenv("USE_CBT") != null) {{#curly}}{{#indent}}
+cbt = new CBTHelper();
+cbt.setSessionId(((RemoteWebDriver)driver).getSessionId().toString());{{/indent}}
+{{/curly}}
 actionwords.setDriver(driver);{{/indent}}
 {{> body}}
 {{/curly}}
 
 protected void tearDown() throws Exception {{#curly}}{{#indent}}
-cbt.setScore(score);
+if (System.getenv("USE_CBT") != null) {{#curly}}{{#indent}}
+cbt.setScore(score);{{/indent}}
+{{/curly}}
 driver.quit();{{/indent}}
 {{/curly}}
 
