@@ -16,15 +16,13 @@ public class SeleniumDriverGetter {
     public WebDriver getDriver(String featureName, String testName) throws Exception {
         DesiredCapabilities caps = DesiredCapabilities.chrome();
 
-        if (System.getenv("USE_CBT") != null) {
-          caps.setCapability("name", "Coffee machine - " + featureName + "/" + testName);
-          caps.setCapability("build", "1.0.1");
-          caps.setCapability("browserName", "Chrome");
-          caps.setCapability("version", "66x64");
-          caps.setCapability("platform", "Windows 10");
-          caps.setCapability("screenResolution", "1366x768");
-          caps.setCapability("record_video", "true");
-        }
+        caps.setCapability("name", "Coffee machine - " + featureName + "/" + testName);
+        caps.setCapability("build", System.getenv("TRAVIS_BUILD_NUMBER"));
+        caps.setCapability("browserName", "Chrome");
+        caps.setCapability("version", "66x64");
+        caps.setCapability("platform", "Windows 10");
+        caps.setCapability("screenResolution", "1366x768");
+        caps.setCapability("record_video", "true");
 
         if (System.getenv("USE_REMOTE_DRIVER") != null) {
             return getRemoteDriver(caps);
