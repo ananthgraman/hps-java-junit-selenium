@@ -60,6 +60,7 @@ public class SeleniumDriverGetter {
         URL hubUrl = null;
 
         try {
+          System.out.println("Getting remote driver " + "http://" + username + ":" + '---' + "@" + driverUrl);
           hubUrl = new URL("http://" + username + ":" + authkey + "@" + driverUrl);
         } catch (MalformedURLException e) {
           System.out.println("Invalid HUB URL");
