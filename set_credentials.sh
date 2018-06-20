@@ -14,5 +14,4 @@ if [ "$USE_SAUCELABS" = true ]; then
   export COFFEE_MACHINE_LOCATION=https://hiptest.github.io/hps-java-junit-selenium/src/web/coffee_machine.html
 
   echo "Running test on SauceLABS, using account; $REMOTE_DRIVER_USERNAME";
-
 fi
