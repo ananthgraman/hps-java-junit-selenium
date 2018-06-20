@@ -6,7 +6,6 @@ env:
   - USE_REMOTE_DRIVER=true USE_SAUCELABS=true REMOTE_DRIVER_URL=ondemand.saucelabs.com:443/wd/hub
   - USE_REMOTE_DRIVER=true USE_CBT=true REMOTE_DRIVER_URL=hub.crossbrowsertesting.com:80/wd/hub
 
-
 addons:
   chrome: stable
 
