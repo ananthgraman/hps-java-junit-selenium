@@ -130,7 +130,6 @@ public class Actionwords {
         for (String line : datatable.split("\n")) {
             String[] cells = line.split("\\|");
 
-            System.out.println("Checking " + driver.findElement(By.id("settingsDisplay")).getText() + " contains " + cells[1].trim() + ": " + cells[2].trim());
             assertTrue(driver.findElement(By.id("settingsDisplay")).getText().contains(cells[1].trim() + ": " + cells[2].trim()));
         }
     }
