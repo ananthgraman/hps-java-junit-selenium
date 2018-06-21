@@ -35,6 +35,7 @@ public class SeleniumDriverGetter {
         if (System.getenv("USE_REMOTE_DRIVER") != null) {
             return getRemoteDriver(caps);
         }
+
         return getLocalDriver(caps);
     }
 
