@@ -18,11 +18,19 @@ public class SeleniumDriverGetter {
 
         caps.setCapability("name", "Coffee machine - " + featureName + "/" + testName);
         caps.setCapability("build", System.getenv("TRAVIS_BUILD_NUMBER"));
-        caps.setCapability("browserName", "Chrome");
-        caps.setCapability("version", "66x64");
-        caps.setCapability("platform", "Windows 10");
-        caps.setCapability("screenResolution", "1366x768");
-        caps.setCapability("record_video", "true");
+
+        if (System.getenv("USE_CBT") != null) {
+          caps.setCapability("browserName", "Chrome");
+          caps.setCapability("version", "66x64");
+          caps.setCapability("platform", "Windows 10");
+          caps.setCapability("screenResolution", "1366x768");
+          caps.setCapability("record_video", "true");
+        }
+
+        if (System.getenv("USE_SAUCELABS") != null) {
+          caps.setCapability("platform", "Windows 10");
+          caps.setCapability("version", "latest");
+        }
 
         if (System.getenv("USE_REMOTE_DRIVER") != null) {
             return getRemoteDriver(caps);

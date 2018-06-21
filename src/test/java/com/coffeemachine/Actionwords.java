@@ -30,6 +30,7 @@ public class Actionwords {
             location = "file://" + System.getProperty("user.dir") + "/src/web/coffee_machine.html";
         }
 
+        System.out.println("Using local coffee machine: " + location);
         driver.get(location);
 
         new Select(driver.findElement(By.id("lang"))).selectByVisibleText(lang);
