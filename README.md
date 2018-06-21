@@ -27,6 +27,7 @@ The tests are generated in [``src/test/java/com/coffeemachine/``](https://github
 
 Run tests locally with Selenium
 -------------------------------
+[![Hiptest Status](https://app.hiptest.com/badges/test_run/169285)](https://app.hiptest.com/projects/1512/test-runs/169285/overview)
 
 First, you must use [``maven``](http://maven.apache.org/) to build the project and run the tests:
 
@@ -38,6 +39,7 @@ By default test report is generated in ```target/surefire-reports/TEST-com.coffe
 
 Run tests using Selenium + Cross browser testing
 ------------------------------------------------
+[![Hiptest Status](https://app.hiptest.com/badges/test_run/169284)](https://app.hiptest.com/projects/1512/test-runs/169284/overview)
 
 You will first need an account on [Cross browser testing](https://crossbrowsertesting.com). Once this is done, you will need to export a few variables to ensure you are using SauceLabs driver:
 
@@ -63,6 +65,7 @@ This should now use CrossBrowserTesting to run the tests.
 
 Run tests using Selenium + SauceLabs
 ------------------------------------
+[![Hiptest Status](https://app.hiptest.com/badges/test_run/101683)](https://app.hiptest.com/projects/1512/test-runs/101683/overview)
 
 You will first need an account on [SauceLabs](https://saucelabs.com). Once this is done, you will need to export a few variables to ensure you are using SauceLabs driver:
 
