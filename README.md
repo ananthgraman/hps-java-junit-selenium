@@ -72,6 +72,7 @@ export REMOTE_DRIVER_USERNAME=<your username on SauceLabs>
 export REMOTE_DRIVER_PASSWORD=<your access key on SauceLabs>
 export REMOTE_DRIVER_URL=ondemand.saucelabs.com:443/wd/hub
 export USE_REMOTE_DRIVER=true
+export USE_SAUCELABS=true
 ```
 
 
