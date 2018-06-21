@@ -45,5 +45,10 @@
       <artifactId>json</artifactId>
       <version>20170516</version>
     </dependency>
+    <dependency>
+        <groupId>com.saucelabs</groupId>
+        <artifactId>saucerest</artifactId>
+        <version>1.0.23</version>
+    </dependency>
   </dependencies>
 </project>

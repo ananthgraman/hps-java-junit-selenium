@@ -18,6 +18,8 @@ public class CanBeConfiguredTest extends TestCase {
         actionwords = new Actionwords();
         if (System.getenv("USE_CBT") != null) {
             cloudHelper = new CBTHelper();
+        } else if (System.getenv("USE_SAUCELABS") != null) {
+            cloudHelper = new SauceLabsHelper();
         } else {
             cloudHelper = new CloudHelper();
         }

@@ -21,6 +21,8 @@ super.setUp();
 {{{ context.call_prefix }}} = new Actionwords();
 if (System.getenv("USE_CBT") != null) {{#curly}}{{#indent}}
 cloudHelper = new CBTHelper();{{/indent}}
+{{/curly}} else if (System.getenv("USE_SAUCELABS") != null) {{#curly}}{{#indent}}
+cloudHelper = new SauceLabsHelper();{{/indent}}
 {{/curly}} else {{#curly}}{{#indent}}
 cloudHelper = new CloudHelper();{{/indent}}
 {{/curly}}{{/indent}}

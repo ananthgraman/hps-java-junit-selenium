@@ -2,9 +2,9 @@ language: java
 sudo: required
 
 env:
-  - USE_LOCAL_DRIVER=true
-  - USE_REMOTE_DRIVER=true USE_SAUCELABS=true REMOTE_DRIVER_URL=ondemand.saucelabs.com:80/wd/hub
-  - USE_REMOTE_DRIVER=true USE_CBT=true REMOTE_DRIVER_URL=hub.crossbrowsertesting.com:80/wd/hub
+  - USE_LOCAL_DRIVER=true TEST_RUN_ID=169285
+  - USE_REMOTE_DRIVER=true USE_SAUCELABS=true REMOTE_DRIVER_URL=ondemand.saucelabs.com:80/wd/hub TEST_RUN_ID=101683
+  - USE_REMOTE_DRIVER=true USE_CBT=true REMOTE_DRIVER_URL=hub.crossbrowsertesting.com:80/wd/hub TEST_RUN_ID=169284
 
 addons:
   chrome: stable
@@ -13,7 +13,7 @@ before_install:
   - rvm install 2.2
   - rvm use 2.2
   - gem install hiptest-publisher
-  - hiptest-publisher -c junit-selenium.conf --token=$SECRET_TOKEN --only=tests --test-run-id=101683
+  - hiptest-publisher -c junit-selenium.conf --token=$SECRET_TOKEN --only=tests --test-run-id=$TEST_RUN_ID
   - ./run_xvfb.sh
 
 install:
@@ -29,4 +29,4 @@ script:
   - mvn package
 
 after_script:
-  - hiptest-publisher -c junit-selenium.conf --token=$SECRET_TOKEN -p "target/surefire-reports/TEST-com.coffeemachine.*.xml" --test-run-id=101683
+  - hiptest-publisher -c junit-selenium.conf --token=$SECRET_TOKEN -p "target/surefire-reports/TEST-com.coffeemachine.*.xml" --test-run-id=$TEST_RUN_ID
