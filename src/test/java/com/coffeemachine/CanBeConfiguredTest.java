@@ -9,29 +9,29 @@ public class CanBeConfiguredTest extends TestCase {
     // Tags: sprint:2
     public Actionwords actionwords;
     public WebDriver driver;
-    private CBTHelper cbt;
+    private CloudHelper cloudHelper;
     public String score = "fail";
     public String featureName = "Can be configured";
 
     protected void setUp() throws Exception {
         super.setUp();
         actionwords = new Actionwords();
+        if (System.getenv("USE_CBT") != null) {
+            cloudHelper = new CBTHelper();
+        } else {
+            cloudHelper = new CloudHelper();
+        }
     }
 
     protected void scenarioSetup(String testName)  throws Exception {
         driver = new SeleniumDriverGetter().getDriver(featureName, testName);
-        if (System.getenv("USE_CBT") != null) {
-            cbt = new CBTHelper();
-            cbt.setSessionId(((RemoteWebDriver)driver).getSessionId().toString());
-        }
+        cloudHelper.setDriver((RemoteWebDriver) driver);
         actionwords.setDriver(driver);
 
     }
 
     protected void tearDown() throws Exception {
-        if (System.getenv("USE_CBT") != null) {
-            cbt.setScore(score);
-        }
+        cloudHelper.setScore(score);
         driver.quit();
     }
 

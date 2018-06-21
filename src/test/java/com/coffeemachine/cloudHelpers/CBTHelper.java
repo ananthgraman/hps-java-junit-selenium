@@ -10,7 +10,10 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class CBTHelper {
+import org.openqa.selenium.remote.RemoteWebDriver;
+
+
+public class CBTHelper extends CloudHelper{
     private String sessionId,username,authkey;
     private String apiUrl = "crossbrowsertesting.com/api/v3/selenium";
 
@@ -36,14 +39,18 @@ public class CBTHelper {
         }
     }
 
-    public void setSessionId(String sessionId) {
-        this.sessionId = sessionId;
+    public void setDriver(RemoteWebDriver driver) {
+        this.setSessionId(driver.getSessionId().toString());
     }
 
     public void setScore(String score) {
         String url = "https://" + apiUrl + "/" + this.sessionId;
         String payload = "{\"action\": \"set_score\", \"score\": \"" + score + "\"}";
         makeRequest("PUT", url,payload);
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
     }
 
     public void takeSnapshot() {

@@ -49,7 +49,6 @@ export USE_REMOTE_DRIVER=true
 export USE_CBT=true
 ```
 
-
 You will also need to specify where the system under test is located, for example:
 
 ```shell
@@ -60,7 +59,7 @@ Run the tests as previously done:
 
     mvn package
 
-This should now use CrossBrowserTesting to run the tests
+This should now use CrossBrowserTesting to run the tests.
 
 Run tests using Selenium + SauceLabs
 ------------------------------------
