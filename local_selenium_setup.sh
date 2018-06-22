@@ -11,4 +11,5 @@ if [ "$USE_LOCAL_DRIVER" = true ]; then
   sudo mv -f ~/chromedriver /usr/local/share/
   sudo chmod +x /usr/local/share/chromedriver
   sudo ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
+  google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
 fi
