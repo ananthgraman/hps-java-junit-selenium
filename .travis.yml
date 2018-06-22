@@ -14,15 +14,7 @@ before_install:
   - rvm use 2.2
   - gem install hiptest-publisher
   - hiptest-publisher -c junit-selenium.conf --token=$SECRET_TOKEN --only=tests --test-run-id=$TEST_RUN_ID
-  - ./run_xvfb.sh
-
-install:
-  - wget -N https://chromedriver.storage.googleapis.com/2.35/chromedriver_linux64.zip -P ~/
-  - unzip ~/chromedriver_linux64.zip -d ~/
-  - rm ~/chromedriver_linux64.zip
-  - sudo mv -f ~/chromedriver /usr/local/share/
-  - sudo chmod +x /usr/local/share/chromedriver
-  - sudo ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
+  - ./local_selenium_setup.sh.sh
 
 script:
   - source set_credentials.sh
