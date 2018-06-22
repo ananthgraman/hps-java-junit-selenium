@@ -14,7 +14,7 @@ before_install:
   - rvm use 2.2
   - gem install hiptest-publisher
   - hiptest-publisher -c junit-selenium.conf --token=$SECRET_TOKEN --only=tests --test-run-id=$TEST_RUN_ID
-  - ./local_selenium_setup.sh.sh
+  - ./local_selenium_setup.sh
 
 script:
   - source set_credentials.sh
