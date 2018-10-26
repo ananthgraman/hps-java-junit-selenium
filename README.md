@@ -87,3 +87,19 @@ Run the tests as previously done:
     mvn package
 
 This should now use SauceLabs to run the tests
+
+Running tests on Travis-CI
+--------------------------
+
+This repository is configured so tests are ran on Travis-CI. There are three environments: local Selenium web driver, SauceLabs and Cross Browser Testing.
+
+If you do not want to run the tests on every plaform, edit the [``.travis.yml``](https://github.com/hiptest/hps-java-junit-selenium/blob/master/.travis.yml) file and remove the environment you do not want to get the tests ran against.
+
+For SauceLabs and CBT, you can not use the ``REMOTE_DRIVER_USERNAME``and ``REMOTE_DRIVER_USERNAME`` variables. Instead, you should set the ``SAUCELABS_USERNAME``and ``SAUCELABS_PASSWORD`` or ``CBT_USENAME``and ``CBT_PASSWORD`` variables, depending on the platform you want to use to run your tests.
+
+Once the build is started, you should see this kind of message in the logs:
+
+    Running test on SauceLABS, using account; vincent-psarga
+    Running test on CBT, using account; vincent%40hiptest.com
+
+If your username does not appear, that means that the variables are not correctly set.
